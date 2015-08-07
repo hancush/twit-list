@@ -15,14 +15,14 @@
   <li>specify twitter list</li>
   <li>define timeframe over which engagement tbd, allowing again for external input</li>
     <ul>
-      <li>-max 100 tweets per user??-</li>
+      <li>~~max tweets??~~</li>
         <ul>
-          <li>from list members, pull all tweets with time/date of today ... is that embedded in tweet?</li>
           <li>pull/store tweets from streaming api in real time to avoid limits</li>
           <li>friday discovery: there is no (apparent) limit</li>
         </ul>
+      <li>from list members, pull all tweets with time/date of today ... is that embedded in tweet?</li>
       <li>should i try first without user selection bits, perhaps using argv to determine list/timeframe in command line?</li>
     </ul>
-  <li>define number of tweets to be returned</li>
+  <li>define number of tweets to be returned (?)</li>
   <li>return tweets</li>
 </ul>  
