@@ -15,7 +15,7 @@
   <li>specify twitter list</li>
   <li>define timeframe over which engagement tbd, allowing again for external input</li>
     <ul>
-      <li>~~max tweets??~~</li>
+      <li><s>max tweets??</s></li>
         <ul>
           <li>pull/store tweets from streaming api in real time to avoid limits</li>
           <li>friday discovery: there is no (apparent) limit</li>
