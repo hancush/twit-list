@@ -1,5 +1,5 @@
-import tweepy
-import time
+import tweepy # must install tweepy locally (?)
+import time # is anything using time here?
 
 # create app at twitter dev to generate:
 ckey = "xjOxpfYcnUwpHabLXigPf3qrq"
