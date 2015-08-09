@@ -12,7 +12,11 @@
     <ul>
       <li>likely in above order</li>
     </ul>
-  <li>specify twitter list</li>
+  <li>pull user lists</li>
+    <ul>
+      <li>print lists (own and subscribe)</li>
+      <li>list = int(raw_input("Which list? "))</li>
+    </ul>
   <li>define timeframe over which engagement tbd, allowing again for external input</li>
     <ul>
       <li><s>max tweets??</s></li>
@@ -21,8 +25,18 @@
           <li>friday discovery: there is no (apparent) limit</li>
         </ul>
       <li>from list members, pull all tweets with time/date of today ... is that embedded in tweet?</li>
-      <li>should i try first without user selection bits, perhaps using argv to determine list/timeframe in command line?</li>
+        <ul>
+          <li>for member in list:<br>
+          \tif date == today:<br>
+          \t\tprint status</li>
+        <ul>
     </ul>
   <li>define number of tweets to be returned (?)</li>
+    <ul>
+      <li>.items(xxx) in for-loop pulling tweets</li>
+    </ul>
   <li>return tweets</li>
+    <ul>
+      <li>receiving <a href="https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning">insecure platform warning</a> when running tweepy_test.py, what do i need to know about using ssl/urllib3?</li>
+      <li>and while we're on the subject, what are the common python libraries i should know about?</li>
 </ul>  
