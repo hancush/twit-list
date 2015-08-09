@@ -27,9 +27,9 @@
       <li>from list members, pull all tweets with time/date of today ... is that embedded in tweet?</li>
         <ul>
           <li>for member in list:<br>
-          \tif date == today:<br>
-          \t\tprint status</li>
-        <ul>
+              if date == today:<br>
+                  print status</li>
+        </ul>
     </ul>
   <li>define number of tweets to be returned (?)</li>
     <ul>
