@@ -1,3 +1,7 @@
+# cobbled together solution using last 5 tweets from each member of list
+# returns top 10 tweets with most retweets/favorites (RTs weighted 50%)
+# doesn't seem to be reply count in tweet objects??
+
 from twython import Twython
 from config import *
 import pprint
@@ -31,13 +35,22 @@ pprint.pprint(list_names)
 
 members = []
 
-def print_members():
+def member_list():
     which = list_ids[int(raw_input("Which list? "))]
     member_objects = twitter.get_list_members(list_id=which)['users']
     for user in member_objects:
         members.append(user['screen_name'])
 
-print_members()
+member_list()
 
-print "Here are the members:"
-pprint.pprint(members)
+def rank_tweets():
+    tweet_scores = {} # need to look into alternate data structures that can tie score to tweet
+    for user in members:
+        tweet_objects = twitter.get_user_timeline(screen_name=user,count=5,exclude_replies=True,include_rts=False)
+        for tweet in tweet_objects:
+            text = "@%s:" % user, "\"" + tweet['text'] + "\""#, "created", tweet['created_at']
+            score = (1.5*tweet['retweet_count'] + tweet['favorite_count'])
+            tweet_scores[score] = text
+    pprint.pprint(sorted(tweet_scores.items(), reverse=True)[:10])
+
+rank_tweets()
