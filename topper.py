@@ -18,7 +18,6 @@ twitter = Twython(APP_KEY, APP_SECRET,
 
 list_names = {}
 list_ids = {}
-members = []
 
 def get_lists():
     list_objects = twitter.show_lists()
@@ -30,24 +29,41 @@ def get_lists():
     print "Found your lists!"
     pprint.pprint(list_names)
 
-get_lists()
+def rank_tweets(x):
+    tweet_scores = {} # need to look into alternate data structures that can tie score to tweet
+    for tweet in x:
+        text = tweet['user']['screen_name'] + ": \"" + tweet['text'] + "\""#, "created", tweet['created_at']
+        score = (1.5*tweet['retweet_count'] + tweet['favorite_count'])
+        tweet_scores[score] = text
+    pprint.pprint(sorted(tweet_scores.items(), reverse=True)[:10])
 
-def member_list():
-    which = list_ids[int(raw_input("Which list? "))]
+def member_tweets():
+    members = []
     member_objects = twitter.get_list_members(list_id=which)['users']
     for user in member_objects:
         members.append(user['screen_name'])
-
-member_list()
-
-def rank_tweets():
-    tweet_scores = {} # need to look into alternate data structures that can tie score to tweet
     for user in members:
         tweet_objects = twitter.get_user_timeline(screen_name=user,count=5,exclude_replies=True,include_rts=False)
-        for tweet in tweet_objects:
-            text = "@%s:" % user, "\"" + tweet['text'] + "\""#, "created", tweet['created_at']
-            score = (1.5*tweet['retweet_count'] + tweet['favorite_count'])
-            tweet_scores[score] = text
-    pprint.pprint(sorted(tweet_scores.items(), reverse=True)[:10])
+        rank_tweets(tweet_objects)
 
-rank_tweets()
+def timeline_tweets():
+    tweet_objects = twitter.get_list_statuses(list_id=which,count=200)
+    rank_tweets(tweet_objects)
+
+get_lists()
+
+which = list_ids[int(raw_input("""Which list?
+> """))]
+
+print """
+Would you like to rank:
+
+1: Last five tweets from each list member?
+2: Last 200 tweets from list?"
+"""
+
+answer = raw_input("> ")
+if answer == 1:
+    member_tweets()
+else:
+    timeline_tweets()
