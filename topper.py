@@ -1,4 +1,4 @@
-# cobbled together solution using last 5 tweets from each member of list
+# cobbled together solution using last 5 tweets from each member of list, or last 200 tweets in list timeline
 # returns top 10 tweets with most retweets/favorites (RTs weighted 50%)
 # doesn't seem to be reply count in tweet objects??
 
@@ -59,7 +59,7 @@ print """
 Would you like to rank:
 
 1: Last five tweets from each list member?
-2: Last 200 tweets from list?"
+2: Last 200 tweets in list timeline?"
 """
 
 answer = raw_input("> ")
