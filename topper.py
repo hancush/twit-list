@@ -16,24 +16,21 @@ OAUTH_TOKEN_SECRET = asecret
 twitter = Twython(APP_KEY, APP_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
-list_objects = twitter.show_lists()
-
 list_names = {}
 list_ids = {}
+members = []
 
 def get_lists():
+    list_objects = twitter.show_lists()
     key = 1
     for list in list_objects:
         list_names[key] = list['name']
         list_ids[key] = list['id']
         key += 1
+    print "Found your lists!"
+    pprint.pprint(list_names)
 
 get_lists()
-
-print "Found your lists!"
-pprint.pprint(list_names)
-
-members = []
 
 def member_list():
     which = list_ids[int(raw_input("Which list? "))]
