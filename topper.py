@@ -18,6 +18,8 @@ twitter = Twython(APP_KEY, APP_SECRET,
 
 list_names = {}
 list_ids = {}
+members = []
+tweet_scores = {} # need to look into alternate data structures that can tie score to tweet
 
 def get_lists():
     list_objects = twitter.show_lists()
@@ -30,25 +32,24 @@ def get_lists():
     pprint.pprint(list_names)
 
 def rank_tweets(x):
-    tweet_scores = {} # need to look into alternate data structures that can tie score to tweet
     for tweet in x:
         text = tweet['user']['screen_name'] + ": \"" + tweet['text'] + "\""#, "created", tweet['created_at']
         score = (1.5*tweet['retweet_count'] + tweet['favorite_count'])
         tweet_scores[score] = text
-    pprint.pprint(sorted(tweet_scores.items(), reverse=True)[:10])
 
-def member_tweets():
-    members = []
-    member_objects = twitter.get_list_members(list_id=which)['users']
+def rank_member_tweets():
+    member_objects = twitter.cursor(twitter.get_list_members, list_id=which) # get all user objects of list members
     for user in member_objects:
-        members.append(user['screen_name'])
+        members.append(user['screen_name']) # extact screen_name from each user object, add to list
     for user in members:
-        tweet_objects = twitter.get_user_timeline(screen_name=user,count=5,exclude_replies=True,include_rts=False)
-        rank_tweets(tweet_objects)
+        tweet_objects = twitter.get_user_timeline(screen_name=user, count=5) # retrieve last 5 tweets from each user
+        rank_tweets(tweet_objects) # feed tweets into ranking function
+    pprint.pprint(sorted(tweet_scores.items(), reverse=True)[:10]) # display top 10 scoring tweets
 
-def timeline_tweets():
-    tweet_objects = twitter.get_list_statuses(list_id=which,count=200)
-    rank_tweets(tweet_objects)
+def rank_timeline_tweets():
+    tweet_objects = twitter.get_list_statuses(list_id=which,count=500) # get last 500 tweet objects from list feed
+    rank_tweets(tweet_objects) # feed tweets into ranking function
+    pprint.pprint(sorted(tweet_scores.items(), reverse=True)[:10]) # return top 10 scoring tweets
 
 get_lists()
 
@@ -56,14 +57,14 @@ which = list_ids[int(raw_input("""Which list?
 > """))]
 
 print """
-Would you like to rank:
+#Would you like to rank:
 
 1: Last five tweets from each list member?
 2: Last 200 tweets in list timeline?"
 """
 
-answer = raw_input("> ")
+answer = int(raw_input("> "))
 if answer == 1:
-    member_tweets()
+    rank_member_tweets()
 else:
-    timeline_tweets()
+    rank_timeline_tweets()
