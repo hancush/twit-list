@@ -1,6 +1,5 @@
-# cobbled together solution using last 5 tweets from each member of list, or last 200 tweets in list timeline
+# ranks last 5 tweets from each member of list, or last 500 tweets in list timeline
 # returns top 10 tweets with most retweets/favorites (RTs weighted 50%)
-# doesn't seem to be reply count in tweet objects??
 
 from twython import Twython
 from config import *
