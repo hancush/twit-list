@@ -59,7 +59,7 @@ print """
 #Would you like to rank:
 
 1: Last five tweets from each list member?
-2: Last 200 tweets in list timeline?"
+2: Last 500 tweets in list timeline?"
 """
 
 answer = int(raw_input("> "))
