@@ -14,7 +14,6 @@ OAUTH_TOKEN_SECRET = asecret
 
 twitter = Twython(APP_KEY, APP_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
-
 list_names = {}
 list_ids = {}
 members = []
@@ -32,7 +31,7 @@ def get_lists():
 
 def rank_tweets(x):
     for tweet in x:
-        text = tweet['user']['screen_name'] + ": \"" + tweet['text'] + "\""#, "created", tweet['created_at']
+        text = u"{0}: \"{1}\"".format(tweet['user']['screen_name'], tweet['text']) # u = unicode; default ascii encoding can't handle emoji
         score = (1.5*tweet['retweet_count'] + tweet['favorite_count'])
         tweet_scores[score] = text
 
