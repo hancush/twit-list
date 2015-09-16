@@ -1,14 +1,10 @@
 <h1>moving the base script forward</h1>
 <ul>
   <li>contact twitter for access to tweet engagement data</li>
-  <li>absent preliminary access to what is currently proprietary data, figure proxy for impression-to-action ratio</li>
+  <li><s>absent preliminary access to what is currently proprietary data, figure proxy for impression-to-action ratio</s> (currently (1.5rt + fave) / .5followers)</li>
+  <li><s>isolate day of week, date, time, timezone in 'created_at' attribute (format: 'mon aug 29 12:34:56 +0000 2012')</s></li>
   <ul>
-    <li>work out formula for mean or median follower-to-engagement ratio by logging tweet engagement data from different types of accounts: citizen, unverified journalist, verified journalist, local journalist, state (political) journalist, national journalist, international (non-us) journalist/s</li>
-    <li>(would require cooperation, perhaps with members?)</li>
-  </ul>
-  <li>isolate day of week, date, time, timezone in 'created_at' attribute (format: 'mon aug 29 12:34:56 +0000 2012')</li>
-  <ul>
-    <li>enable time- rather than volume-based pool</li>
+    <li><s>enable time- rather than volume-based pool</s></li>
     <li>enable searches localized to news events, i.e. 1.5 hours after time of event</li>
   </ul>
   <li>explore filters</li>
