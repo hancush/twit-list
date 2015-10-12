@@ -21,9 +21,8 @@ class Sample(object):
     """For time-based queries, cull tweets within period or proximity of event."""
 
     def __init__(self, which):
-        self.which = which
         self.feed_objects = tweepy.Cursor(
-                    twitter.list_timeline,list_id=self.which,
+                    twitter.list_timeline,list_id=which,
                     include_rts=False
                 )
         self.time_objects = []
