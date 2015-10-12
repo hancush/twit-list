@@ -76,7 +76,6 @@ class Rank(object):
                         tweet.text
                     )
         pprint(sorted(scores.items(), reverse=True)[:10])
-        scores.clear()
 
     def rank_vol(self, volume):
         """Rank most recent x tweets, where x = volume."""
