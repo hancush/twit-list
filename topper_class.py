@@ -1,6 +1,5 @@
 import requests
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 from pprint import pprint
 
 import tweepy
@@ -18,22 +17,23 @@ auth = tweepy.OAuthHandler(
 )
 twitter = tweepy.API(auth)
 
-class Rank(object):
-    """Score and rank tweets by volume or time period."""
+class Sample(object):
+    """For time-based queries, cull tweets within period or proximity of event."""
 
-    def __init__(self):
+    def __init__(self, which):
+        self.which = which
         self.feed_objects = tweepy.Cursor(
-                    twitter.list_timeline,list_id=211679718,
+                    twitter.list_timeline,list_id=self.which,
                     include_rts=False
                 )
+        self.time_objects = []
 
-    def sample(self, hours):
+    def sample_per(self, hours):
         """For time queries, pull tweets from defined period."""
         cutoff = (
                 datetime.utcnow() - timedelta(hours=hours)
             ).strftime('%b %d %H:%M:%S')
-        self.time_objects = []
-        for tweet in self.feed_objects.items(9999):
+        for tweet in self.feed_objects.items():
             data = tweet._json # isolate metadata
             raw_time = datetime.strptime( # reformat created_at
                         data['created_at'],
@@ -44,7 +44,24 @@ class Rank(object):
                 self.time_objects.append(tweet)
             else:
                 break
-        print cutoff
+
+class Rank(object):
+    """Score and rank tweets by volume or time period."""
+
+    def __init__(self):
+        list_names = {}
+        list_ids = {}
+        list_objects = twitter.lists_all(screen_name=me)
+        key = 1
+        for list_ in list_objects:
+            list_names[key] = list_.name
+            list_ids[key] = list_.id
+            key += 1
+        print "Found your lists!"
+        pprint(list_names)
+        which = list_ids[int(raw_input("""Which list?
+> """))]
+        self.sample = Sample(which)
 
     def score(self, objects):
         """For both time and volume queries, rank tweet sample according
@@ -52,9 +69,9 @@ class Rank(object):
         number of favorites, all divided by half number of followers."""
         scores = {}
         for tweet in objects:
-            data = tweet._json # isolate metadata
+            data = tweet._json
             score = ((1.5*data['retweet_count'] + data['favorite_count'])
-                     / (data['user']['followers_count'] / 2))*1000
+                     / (data['user']['followers_count'] / 1.5))*1000
             scores[round(score, 2)] = u"{0} at {1}: {2}".format(
                         data['user']['screen_name'], data['created_at'],
                         tweet.text
@@ -63,10 +80,10 @@ class Rank(object):
         scores.clear()
 
     def rank_vol(self, volume):
-        """Sample number of tweets defined by volume argument."""
-        self.score(self.feed_objects.items(volume))
+        """Rank most recent x tweets, where x = volume."""
+        self.score(self.sample.feed_objects.items(volume))
 
-    def rank_time(self, hours):
-        """Sample tweets from time period defined by hours argument."""
-        self.sample(hours)
-        self.score(self.time_objects)
+    def rank_per(self, hours):
+        """Rank tweets from last x hours, where x = events."""
+        self.sample.sample_per(hours)
+        self.score(self.sample.time_objects)
