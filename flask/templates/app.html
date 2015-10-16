@@ -1,0 +1,51 @@
+<head>
+  <style type="text/css">
+    #main{
+      font-family:arial;
+      font-size:20pt;
+    }
+    #user, #hours {
+      font-size:20pt;
+      border-top:none;
+      border-right:none;
+      border-left:none;
+      border-bottom:2px solid black;
+      padding-top:10px;
+      width:250px;
+    }
+    #hours {
+      width:50px;
+      text-align:center;
+    }
+    #which {
+      font-size:20pt;
+      border:none;
+    }
+  </style>
+</head>
+
+<body
+<div id="main" align="center"><br><br>
+{% if pageType == "intro" %}
+  <form method="POST">
+    <p>{{ form.user.label }}<br>
+       @{{ form.user }}</p>
+    <p>{{ form.submit }}</p>
+  </form>
+{% elif pageType == "lists" %}
+  <form id="which" method="POST">
+    <p>{{ form2.which.label }} {{ form2.which }}</p>
+    <p>{{ form2.hours.label }} {{ form2.hours }}</p>
+    <p>{{ form2.submit }}</p>
+  </form>
+{% else %}
+Top-ranked tweets from the last {{ hours }} hours:<br><br>
+    {% for result in results %}
+      {{ result|safe }}
+    {% endfor %}
+{% endif %}
+</div>
+</body>
+
+<footer>
+</footer>
