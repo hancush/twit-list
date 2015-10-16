@@ -1,7 +1,7 @@
 # twit-list
 
 local prototype completed 10/16/15
-<img src="http://i.imgur.com/uvW7146.gif">
+<img src="http://i.imgur.com/LDj6G6f.gif">
 
 <h1>Why</h1>
 Part of my job is training, but Rome wasn't built in a day, so I wanted to find a way to empower a broader swath of people to spot stories on social without having to grasp all the idiosyncrasies of the Twitter interface.
