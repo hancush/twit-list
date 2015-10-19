@@ -1,0 +1,5 @@
+config.py
+auth.py
+*.pyc
+/*/venv/*
+flask_notes.txt

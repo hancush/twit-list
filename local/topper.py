@@ -20,6 +20,10 @@ members = []
 tweet_scores = {} # need to look into alternate data structures that can tie score to tweet
 
 def get_lists():
+    global list_names
+    global list_ids
+    list_names = {}
+    list_ids = {}
     list_objects = twitter.show_lists()
     key = 1
     for list in list_objects:
@@ -28,6 +32,9 @@ def get_lists():
         key += 1
     print "Found your lists!"
     pprint.pprint(list_names)
+    global which
+    which = list_ids[int(raw_input("""Which list?
+    #> """))]
 
 def rank_tweets(x):
     for tweet in x:
@@ -50,19 +57,20 @@ def rank_timeline_tweets():
     pprint.pprint(sorted(tweet_scores.items(), reverse=True)[:10]) # return top 10 scoring tweets
 
 get_lists()
+print which
 
-which = list_ids[int(raw_input("""Which list?
-> """))]
+#which = list_ids[int(raw_input("""Which list?
+#> """))]
 
-print """
-#Would you like to rank:
+#print """
+##Would you like to rank:
 
-1: Last five tweets from each list member?
-2: Last 500 tweets in list timeline?"
-"""
+#1: Last five tweets from each list member?
+#2: Last 500 tweets in list timeline?"
+#"""
 
-answer = int(raw_input("> "))
-if answer == 1:
-    rank_member_tweets()
-else:
-    rank_timeline_tweets()
+#answer = int(raw_input("> "))
+#if answer == 1:
+#    rank_member_tweets()
+#else:
+#    rank_timeline_tweets()
