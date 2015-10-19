@@ -1,11 +1,17 @@
 import pprint
 
-from topper_local import Rank, get_lists
+from topper_class import Sample, Rank
 from config import *
 
-which = get_lists()
-#which = 211727260
+go = Rank()
 
-go = Rank(which)
+answer = int(raw_input("""1 - Rank by volume
+2 - Rank by time period
+> """))
 
-go.rank_per(12)
+if answer == 1:
+    go.rank_vol(raw_input("""How many tweets would you like to rank?
+> """))
+else:
+    go.rank_per(int(raw_input("""How many hours' worth of tweets would you like to rank?
+> """)))
