@@ -33,7 +33,7 @@ class Rank(object):
         """Get tweets from given list."""
         return tweepy.Cursor(
                     twitter.list_timeline,list_id=which,
-                    include_rts=False
+                    include_rts=False,count=100
                 )
 
     def sample_per(self, objects, hours):
@@ -62,8 +62,16 @@ class Rank(object):
         scores = {}
         for tweet in objects:
             data = tweet._json
-            score = ((1.5*data['retweet_count'] + data['favorite_count'])
-                     / (data['user']['followers_count'] / 1.5))*1000
+            #raw_time = datetime.strptime( # reformat created_at
+            #            data['created_at'],
+            #            '%a %b %d %H:%M:%S +0000 %Y'
+            #        )
+            #age = ((datetime.utcnow() - raw_time).seconds / 60) + 1
+            followers = data['user']['followers_count']
+            engagement = 1.25 * data['retweet_count'] + data['favorite_count']
+            e2f = engagement / (followers*0.5) * 1000
+            #e2a =  0.5 * (engagement / (age*0.99)) * 100
+            score = e2f #+ e2a
             scores[round(score, 2)] = data['id']
         embeds = []
         for item in sorted(scores.items(), reverse=True)[:10]: #sorted returns tuple

@@ -1,4 +1,7 @@
 from flask import Flask, render_template, redirect, session
+
+import tweepy
+
 from topper_class import Rank
 from form_class import Intro, ListDrop
 
@@ -36,15 +39,21 @@ def lists():
 
 @app.route('/results', methods=['GET'])
 def results():
-    pageType='results'
+    pageType = 'results'
     go = Rank()
     tweets = go.get_tweets(int(session['which']))
     sample = go.sample_per(tweets, int(session['hours']))
     results = go.score(sample)
     return render_template('app.html',
-                           pageType=pageType,
-                           results=results,
-                           hours=session['hours'])
+                       pageType=pageType,
+                       results=results,
+                       hours=session['hours'])
+
+@app.errorhandler(tweepy.TweepError)
+def rate_limit_exceeded(e):
+    return render_template('app.html',
+                       pageType='error')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
