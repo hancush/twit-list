@@ -1,3 +1,5 @@
+# REMOVE UNDERSCORE FROM FILENAME ONCE YOU'VE UPDATED WITH YOUR OWN CREDENTIALS
+
 me = "YOUR_TWITTER_HANDLE"
 # create your app here https://apps.twitter.com/
 # then go to keys and acccess tokens and generate your token @ bottom
