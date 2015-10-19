@@ -1,5 +1,5 @@
 config.py
 auth.py
 *.pyc
-/*/venv/*
+/*/venv/
 flask_notes.txt
