@@ -5,11 +5,10 @@ import requests
 from datetime import datetime, timedelta
 from time import mktime
 from pprint import pprint
-from math import log
 
 import tweepy
 
-from config import me, ckey, csecret
+from config import ckey, csecret
 
 requests.packages.urllib3.disable_warnings()
 
@@ -19,8 +18,7 @@ OAUTH_KEYS = (
 auth = tweepy.OAuthHandler(
     ckey, csecret
 )
-twitter = tweepy.API(auth,wait_on_rate_limit=True,
-                     wait_on_rate_limit_notify=True)
+twitter = tweepy.API(auth)
 
 class Rank(object):
 
@@ -55,20 +53,16 @@ class Rank(object):
         scores = {}
         for tweet in objects:
             data = tweet._json
-            raw_time = datetime.strptime( # reformat created_at
-                        data['created_at'],
-                        '%a %b %d %H:%M:%S +0000 %Y'
-                    )
-            age = ((datetime.utcnow() - raw_time).seconds / 60) + 1
+            #raw_time = datetime.strptime( # reformat created_at
+            #            data['created_at'],
+            #            '%a %b %d %H:%M:%S +0000 %Y'
+            #        )
+            #age = ((datetime.utcnow() - raw_time).seconds / 60) + 1
             followers = data['user']['followers_count']
             engagement = 1.25 * data['retweet_count'] + data['favorite_count']
             e2f = engagement / (followers*0.5) * 1000
-            e2a =  engagement / (age*0.95) * 100
-            score = e2f + e2a
-            print "Engagement: {0}, Age: {1}, E2F: {2}, E2A: {3}".format(
-                                                        engagement, age,
-                                                        e2f, e2a
-                                                    )
+            #e2a =  engagement / (age*0.95) * 100
+            score = e2f #+ e2a
             scores[round(score, 2)] = u"{0} at {1}: {2}".format(
                         data['user']['screen_name'], data['created_at'],
                         tweet.text
@@ -84,10 +78,10 @@ class Rank(object):
         self.sample_per(hours)
         self.score(self.time_objects)
 
-def get_lists():
+def get_lists(user):
     list_names = {}
     list_ids = {}
-    list_objects = twitter.lists_all(screen_name=me)
+    list_objects = twitter.lists_all(screen_name=user)
     key = 1
     for list_ in list_objects:
         list_names[key] = list_.name
