@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, session
 
 import tweepy
 
-from topper_class import Rank
+import topper as t
 from form_class import Intro, ListDrop
 
 app = Flask(__name__)
@@ -23,8 +23,7 @@ def get_user():
 @app.route('/lists', methods=['GET', 'POST'])
 def lists():
     pageType = 'lists'
-    go = Rank()
-    lists = go.get_lists(session['user']) # 15 per 15 min
+    lists = t.get_lists(session['user']) # 15 per 15 min
     form2 = ListDrop()
     form2.which.choices = lists
     if form2.is_submitted():
@@ -40,10 +39,8 @@ def lists():
 @app.route('/results', methods=['GET'])
 def results():
     pageType = 'results'
-    go = Rank()
-    tweets = go.get_tweets(int(session['which']))
-    sample = go.sample_per(tweets, int(session['hours']))
-    results = go.score(sample)
+    sample = t.get_tweets(session['which'], int(session['hours']))
+    results = t.score_tweets(sample)
     return render_template('app.html',
                        pageType=pageType,
                        results=results,

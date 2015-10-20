@@ -72,7 +72,7 @@ class Rank(object):
             e2f = engagement / (followers*0.5) * 1000
             #e2a =  0.5 * (engagement / (age*0.99)) * 100
             score = e2f #+ e2a
-            scores[round(score, 2)] = data['id']
+            scores[score] = data['id']
         embeds = []
         for item in sorted(scores.items(), reverse=True)[:10]: #sorted returns tuple
             embed = twitter.get_oembed(id=item[1], align='center')

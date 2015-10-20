@@ -5,6 +5,7 @@ import requests
 from datetime import datetime, timedelta
 from time import mktime
 from pprint import pprint
+import math
 
 import tweepy
 
@@ -45,6 +46,9 @@ class Rank(object):
                 self.time_objects.append(tweet)
             else:
                 break
+        global calls
+        calls += math.ceil(len(self.time_objects) / 100.00)
+        return calls 
 
     def score(self, objects):
         """For both time and volume queries, rank tweet sample according
@@ -91,3 +95,5 @@ def get_lists(user):
     pprint(list_names)
     which = list_ids[int(raw_input("Which list? "))]
     return which
+
+calls = 0
