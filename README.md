@@ -1,10 +1,10 @@
-# twit-list
 
-local prototype completed 10/16/15
+IT'S ALIVE: <a href="http://twit-list.herokuapp.com" target="_blank">twit-list.herokuapp.com</a>
+
 <img src="http://i.imgur.com/9kYiDu4.gif">
 
 <h1>Who</h1>
-Hi I'm Hannah (<a href="http://twitter.com/hancush">@hancush</a>) and I'm a realtime/social media reporter/editor for the Midwest at the Associated Press.
+Hi I'm Hannah (<a href="http://twitter.com/hancush" target="_blank">@hancush</a>) and I'm a realtime/social media reporter/editor for the Midwest at the Associated Press.
 
 I decided to learn Python on a lark in July, then I thought, oh well I ought to incorporate this into my job, so I thought up this tool that vacuums up x hours of tweets from a Twitter list timeline, scores them based on stuff I think is important and spits back the top 10.
 
