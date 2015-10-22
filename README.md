@@ -1,7 +1,7 @@
 # twit-list
 
 local prototype completed 10/16/15
-<img src="http://imgur.com/khD4yzM.gif">
+<img src="http://i.imgur.com/9kYiDu4.gif">
 
 <h1>Who</h1>
 Hi I'm Hannah (<a href="http://twitter.com/hancush">@hancush</a>) and I'm a realtime/social media reporter/editor for the Midwest at the Associated Press.
@@ -18,4 +18,4 @@ Part of my job is training, but Rome wasn't built in a day, so I wanted to find 
 <h1>In sum</h1>
 Really this is all a big learning exercise, but that's the engine that's driven this whole pursuit: realizing what can be done, asking how, and then setting out to do it yourself.
 
-If you read all that, forreal tweet me.
+If you read all that, I'm serious: Tweet me.
