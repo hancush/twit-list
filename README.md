@@ -1,5 +1,5 @@
 
-IT'S ALIVE: <a href="http://twit-list.herokuapp.com" target="_blank">twit-list.herokuapp.com</a>
+# IT'S ALIVE: <a href="http://twit-list.herokuapp.com" target="_blank">twit-list.herokuapp.com</a>
 
 <img src="http://i.imgur.com/9kYiDu4.gif">
 
